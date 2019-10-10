@@ -1,17 +1,14 @@
 //入口函数
 $(function(){
-    $('a').click(function(e){
-        e.preventDefault();
-    })
     /* 1.页面一加载请求个人信息：渲染页面 */
   
     $.ajax({
-        url:'http://localhost:8080/api/v1/admin/user/info',
+        url:BigNew.user_info,
         type:'get',
         dataType:'json',
         data:'',
         success: function(backData){
-            console.log(backData);
+            // console.log(backData);
             $('.user_info>img').attr('src',backData.data.userPic);
             $('.user_info>span').html('欢迎&nbsp;&nbsp;'+backData.data.nickname);
             $('.user_center_link>img').attr('src',backData.data.userPic);
@@ -31,16 +28,22 @@ $(function(){
         $(this).addClass('active').siblings().removeClass('active');
         if($(this).index() == 1){
             $('.level02').slideToggle();
-            // $('.level01 b').toggleClass('rotate0');
-            $('.level02 li').eq(0).click();
+            $('.level01 b').toggleClass('rotate0');
+            $('.level02>li:eq(0)>a')[0].click();
         }else{
             $('ul.level02').slideUp();
-            // $('.level01 b').removeClass('rotate0');
+            $('.level01 b').removeClass('rotate0');
         }
     });
 
     /* 二级菜单点击高亮效果 */
     $('.level02>li').click(function(){
         $(this).addClass('active').siblings().removeClass('active');
+    });
+
+    // 右上角头像点击也进入
+    $('.user_center_link>img').click(function(){
+        // $('#user').click();
+        $('#user>a')[0].click();
     });
 });

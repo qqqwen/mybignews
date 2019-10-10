@@ -223,6 +223,14 @@ body{
     height:56px;
     background-color: #fff;
 }
+.header_bar .user_center_link img {
+    cursor: pointer;
+}
+.header_bar .user_center_link img:hover{
+    width: 48px;
+    height: 48px;
+    transition:all 500ms ease;
+}
 
 .main{
     position:fixed;
@@ -254,7 +262,6 @@ body{
     height:31px;
     margin-left:12px;
     outline:none;
-   
 }
 
 .search_form .icon-search{
