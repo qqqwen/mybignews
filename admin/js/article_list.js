@@ -52,7 +52,7 @@ $(function () {
         //2.1 阻止默认跳转
         e.preventDefault();
         //2.2 ajax请求
-        getArticleList(1,true);
+        getArticleList(1, true);
     });
 
     // 主动触发筛选按钮
@@ -78,7 +78,7 @@ $(function () {
             prev: '上一页',
             next: '下一页',
             last: '尾页',
-            onPageClick: function (event,page) {
+            onPageClick: function (event, page) {
                 // $('#page-content').text('Page ' + page);
                 // console.log(page);
                 getArticleList(page);
@@ -97,7 +97,7 @@ $(function () {
     * @param {type} flag : 布尔类型 true: 需要重新加载分页插件  false：不需要
     * @return: 
     */
-    function getArticleList(currentPage,flag) {
+    function getArticleList(currentPage, flag) {
         $.ajax({
             url: BigNew.article_query,
             type: 'get',
@@ -109,12 +109,46 @@ $(function () {
                 perpage: 10//每页返回10条数据
             },
             success: function (backData) {
-                console.log(backData);  
+                // console.log(backData);
                 $('.art_list>tbody').html(template('art_list', backData));
-                if(flag){
+                if (flag) {
                     loadPagination(backData.data.totalPage, currentPage);
                 };
             }
         });
-    }
+    };
+
+
+
+    /*3.删除文章：
+    3.1 给删除按钮注册委托事件（动态添加的元素需要注册动态事件）
+    3.2 获取当前点击按钮自定义属性 data-id
+    3.3 ajax发送请求
+    3.4 响应之后刷新页面 
+    */
+    $('.art_list>tbody').on('click', '.delete', function () {
+        $.ajax({
+            url: BigNew.article_delete,
+            type: 'get',
+            dataType: 'json',
+            data: { id: $(this).attr('data-id') },
+            success: function (backData) {
+                console.log(backData);
+                if (backData.code == 204) {
+                    alert('删除成功');
+                    window.location.reload();
+                };
+            }
+        });
+    });
+
+
+    /* 点击发布文章，设置左侧导航栏 发布文章 高亮 */
+    $('#release_btn').click(function () {
+        /* 
+        $(选择器,DOM) ： 默认第二个参数就是当前页面的DOM树
+        $(选择器,window.parent.document) : 选择父窗口的元素
+         */
+        $('.level02>li:eq(1)',window.parent.document).addClass('active').siblings().removeClass('active');
+    });
 })
