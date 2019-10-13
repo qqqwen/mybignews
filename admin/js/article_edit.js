@@ -49,7 +49,7 @@ $(function () {
     });
 
 
-    
+
     // 保存按钮
     $('.btn-edit').click(function (e) {
         e.preventDefault();
@@ -86,5 +86,7 @@ $(function () {
                 };
             }
         });
-    }
-})
+    };
+
+    
+});
