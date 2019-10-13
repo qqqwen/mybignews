@@ -133,7 +133,7 @@ $(function () {
             dataType: 'json',
             data: { id: $(this).attr('data-id') },
             success: function (backData) {
-                console.log(backData);
+                // console.log(backData);
                 if (backData.code == 204) {
                     alert('删除成功');
                     window.location.reload();
