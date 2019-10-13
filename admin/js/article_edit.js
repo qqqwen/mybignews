@@ -49,6 +49,7 @@ $(function () {
     });
 
 
+    
     // 保存按钮
     $('.btn-edit').click(function (e) {
         e.preventDefault();
@@ -65,6 +66,7 @@ $(function () {
     function articleEdit(state) {
         //创建FormData对象：参数是表单dom对象
         var fd = new FormData($('#form')[0]);
+        // 自动获取的表单内容不够，要自行添加
         fd.append('id', id);
         fd.append('date', $('#testico').val())
         fd.append('content', tinymce.activeEditor.getContent())

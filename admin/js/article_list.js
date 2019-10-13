@@ -129,7 +129,7 @@ $(function () {
     $('.art_list>tbody').on('click', '.delete', function () {
         $.ajax({
             url: BigNew.article_delete,
-            type: 'get',
+            type: 'post',
             dataType: 'json',
             data: { id: $(this).attr('data-id') },
             success: function (backData) {
