@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>大事件-列表页</title>
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/jquery.pagination.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/jquery.pagination.css"> -->
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script type="text/javascript" src="libs/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="libs/jquery.pagination.min.js"></script>
-
+    <script src="libs/template-web.js"></script>
+    <!-- <script type="text/javascript" src="libs/jquery.pagination.min.js"></script> -->
     <script src="js/list.js"></script>
 </head>
 
@@ -137,18 +137,8 @@
                 </div>
             </div>
 
-            <div id="pagination" class="page"></div>
-            <script>
-                $(function () {
-                    $("#pagination").pagination({
-                        currentPage: 2,
-                        totalPage: 8,
-                        callback: function (current) {
-                            alert('ok!');
-                        }
-                    });
-                });
-            </script>
+
+            <ul id="pagination" class="pagination-sm"></ul>
 
         </div>
         <div class="right_con setfl">
@@ -227,8 +217,65 @@
         <p>CopyRight © 2019 深圳大事件信息技术股份有限公司 All Rights Reserved</p>
         <p>电话：0755-****888 粤ICP备*******8号</p>
     </div>
-    <!-- 导包template -->
-    <script src="./js/template-web.js"></script>
 </body>
 
+
+
+
+
+<script id="ArticleCategoryAll" type="text/html">
+    {{ each data v }}
+    <li><a href="#">{{ v.name }}</a></li>
+    {{ /each }}
+</script>
+
+<script id="ArticleCategoryShow" type="text/html">
+    {{ each data v }}
+    <li><a href="#">{{ v.name }}</a></li>
+    {{ /each }}
+</script>
+
+<script id="HotArticle" type="text/html">
+    {{ each data v }}
+    <li><span>{{ v.index }}</span><a href="#">{{ v.title }}</a></li>
+    {{ /each }}
+</script>
+
+<script id="LatestComment" type="text/html">
+    {{ each data v }}
+    <li>
+        <span>{{ v.FirstWord }}</span>
+        <b><em>{{ v.author }}</em> {{ v.ago }}个月前({{ v.Mounth }}-{{ v.Day }})说:</b>
+        <strong>{{ v.intro }}</strong>
+    </li>
+    {{ /each }}
+</script>
+
+<script id="Focus" type="text/html">
+    {{ each data v }}
+    <li><a href="#">{{ v.intro }}</a></li>
+    {{ /each }}
+</script>
+
+<script id="LatestNews" type="text/html">
+    <div class="list_title">
+        <h3>{{ data.data[0].category }}</h3>
+    </div>
+    {{ each data.data v }}
+    <div class="common_news_list">
+        <a href="#" class="list_pic"><img src="{{ v.cover }}" alt=""></a>
+        <h4><a href="#">{{ v.title }} </a></h4>
+        <p>{{ v.content }}</p>
+        <div class="new_info">
+            <span>标签：{{ v.category }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( {{ v.read }} )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{ v.comments }} )</span>
+            <b>发布于 {{ v.date }}</b>
+        </div>
+    </div>
+    {{ /each }}
+    <div id="pagination" class="pagination-sm"></div>
+</script>
+
+
+
+<script src="libs/jquery.twbsPagination.js"></script>
 </html>
