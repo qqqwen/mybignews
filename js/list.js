@@ -1,7 +1,14 @@
 $(function () {
     var id = window.location.href.split('?')[1];
     // console.log(id);
-    
+
+    // 主动触发一次按钮函数 
+    btn_search();
+    // 按钮事件
+    $('.search_btn').click(function(){
+        btn_search();
+    })
+
     // 1.全部分类渲染
     $.ajax({
         url: 'http://localhost:8080/api/v1/index/category',
@@ -63,32 +70,24 @@ $(function () {
 
 
 
-    // 5.内容列表
-    $.ajax({
-        url:'http://localhost:8080/api/v1/index/search',
-        type:'get',
-        dataType:'json',
-        data:{type:id},
-        success: function(backData){
-            // console.log(backData);
-            $('.setfr').html(template('LatestNews',backData));
-        }
-    });
 
-
-    $('#pagination').twbsPagination({
-        totalPages: 20,
-        startPage: 1,
-        visiblePages: 6,
-        first: '首页',
-        prev: '上一页',
-        next: '下一页',
-        last: '尾页',
-        onPageClick: function (event, page) {
-            // $('#page-content').text('Page ' + page);
-            // console.log(page);
-            // getArticleList(page);
-        }
-    });
+    
+    // 搜索框按钮事件----------------封装
+    function btn_search(){
+        $.ajax({
+            url:'http://localhost:8080/api/v1/index/search',
+            type:'get',
+            dataType:'json',
+            data:{
+                key:$('.search_txt').val(),
+                page:1,
+                perpage:10
+            },
+            success: function(backData){
+                console.log(backData);
+                $('.com_news_list').html(template('LatestNews',backData));
+            }
+        });
+    }
 
 });

@@ -9,6 +9,11 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- 引入模板引擎js文件 -->
+    <script src="libs/template-web.js"></script>
+    <script src="libs/jquery-1.12.4.min.js"></script>
+
+    <script src="js/article.js"></script>
 </head>
 
 <body>
@@ -93,11 +98,12 @@
                     <input type="submit" name="" value="评 论" class="comment_sub"></div>
             </form>
 
-            <div class="comment_count">
-                4条评论
-            </div>
+
 
             <div class="comment_list_con">
+                <div class="comment_count">
+                    4条评论
+                </div>
                 <div class="comment_detail_list">
                     <div class="person_pic fl">乔</div>
                     <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
@@ -205,10 +211,44 @@
         <p>电话：0755-****888 粤ICP备*******8号</p>
     </div>
 
-    <!-- 引入模板引擎js文件 -->
-    <script src="./js/template-web.js"></script>
-    <script src="./js/jquery-1.12.4.min.js"></script>
 
 </body>
+
+<script id="HotArticle" type="text/html">
+    {{ each data v }}
+    <li><span>{{ v.index }}</span><a href="./article.html?id={{ v.id }}">{{ v.title }}</a></li>
+    {{ /each }}
+</script>
+
+<script id="LatestComment" type="text/html">
+    {{ each data v }}
+    <li>
+        <span>{{ v.FirstWord }}</span>
+        <b><em>{{ v.author }}</em> {{ v.ago }}个月前({{ v.Mounth }}-{{ v.Day }})说:</b>
+        <strong>{{ v.intro }}</strong>
+    </li>
+    {{ /each }}
+</script>
+
+<script id="Focus" type="text/html">
+    {{ each data v }}
+    <li><a href="./article.html?id={{ v.id }}">{{ v.intro }}</a></li>
+    {{ /each }}
+</script>
+
+<script id="com_list" type="text/html">
+    <div class="comment_count">
+        {{ data.length }}条评论
+    </div>
+    {{ each data v }}
+    <div class="comment_detail_list">
+        <div class="person_pic fl">{{ v.author.substr(0,1) }}</div>
+        <div class="name_time fl"><b>{{ v.author }}</b><span>{{ v.date }}</span></div>
+        <div class="comment_text fl">
+                {{ v.content }}
+        </div>
+     </div>
+     {{ /each }}
+</script>
 
 </html>
